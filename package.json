@@ -2,6 +2,7 @@
   "name": "react-proto",
   "version": "1.5.1",
   "description": "React TypeScript Boilerplate",
+  "homepage": "./",
   "author": "Max L Stop&Go",
   "license": "ISC",
   "sideEffects": [
