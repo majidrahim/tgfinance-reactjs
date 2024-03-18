@@ -2,7 +2,6 @@
   "name": "react-proto",
   "version": "1.5.1",
   "description": "React TypeScript Boilerplate",
-  "homepage": "https://majidrahim.github.io/tgfinance-reactjs/",
   "author": "Max L Stop&Go",
   "license": "ISC",
   "sideEffects": [
@@ -19,7 +18,7 @@
     "build:report": "npm run build --withReport",
     "run": "node dist/server.js",
     "start:static": "npm run clean  && cross-env NODE_ENV=development NO_SSR=true webpack serve --mode development --open",
-    "build:static": "npm run clean  && cross-env NODE_ENV=production NO_SSR=true webpack --mode production",
+    "build:static": "npm run clean  && cross-env PUBLIC_URL=/tgfinance-reactjs NODE_ENV=production NO_SSR=true webpack --mode production",
     "build:static:report": "npm run build:static --withReport",
     "prettier": "prettier \"src/**/*\" --write --single-quote --no-semi --ignore-unknown --trailing-comma none --jsx-single-quote",
     "lint": "ts-standard . && stylelint **/*.{css,scss}",
