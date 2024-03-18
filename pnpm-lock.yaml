@@ -68,6 +68,9 @@ dependencies:
   serialize-javascript:
     specifier: 6.0.2
     version: 6.0.2
+  tslib:
+    specifier: ^2.6.2
+    version: 2.6.2
 
 devDependencies:
   '@pmmmwh/react-refresh-webpack-plugin':
