@@ -1,30 +1,30 @@
-import { StrictMode } from 'react'
-import { createRoot, hydrateRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
-import { HelmetProvider } from 'react-helmet-async'
-import { loadableReady } from '@loadable/component'
+import { StrictMode } from "react";
+import { createRoot, hydrateRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
+import { loadableReady } from "@loadable/component";
 
-import { App } from './App'
+import { Root } from "components/Root/Root";
 
-import { initStore } from 'store/store'
-import { Provider } from 'react-redux'
+import { initStore } from "store/store";
+import { Provider } from "react-redux";
 import {
   USE_SERVICE_WORKER,
-  localStorageAppKey
-} from 'constants/commonConstants'
+  localStorageAppKey,
+} from "constants/commonConstants";
 
-import { isServer } from 'utils'
+import { isServer } from "utils";
 
-import 'style/main.scss'
+import "style/main.scss";
 
 const serverPreloadedState =
   !isServer && window.__PRELOADED_STATE__ != null
     ? window.__PRELOADED_STATE__
-    : {}
+    : {};
 
 let preloadedState = {
-  ...serverPreloadedState
-}
+  ...serverPreloadedState,
+};
 
 if (NO_SSR && localStorage.getItem(localStorageAppKey) != null) {
   /*
@@ -33,35 +33,35 @@ if (NO_SSR && localStorage.getItem(localStorageAppKey) != null) {
     Otherwise, check App.tsx file.
   */
   preloadedState = {
-    ...JSON.parse(localStorage.getItem(localStorageAppKey) as string)
-  }
+    ...JSON.parse(localStorage.getItem(localStorageAppKey) as string),
+  };
 }
 
-const store = initStore(preloadedState)
+const store = initStore(preloadedState);
 
 if (module.hot != null) {
-  module.hot.accept(['store/store', 'store/rootReducer'], () => {
-    ;(async () => {
-      const { mainReducer } = await import('store/rootReducer')
-      store.replaceReducer(mainReducer)
+  module.hot.accept(["store/store", "store/rootReducer"], () => {
+    (async () => {
+      const { mainReducer } = await import("store/rootReducer");
+      store.replaceReducer(mainReducer);
     })()
       .then(() => {})
-      .catch((er) => console.log(er))
-  })
+      .catch((er) => console.log(er));
+  });
 }
 
 if (
   USE_SERVICE_WORKER &&
-  String(process.env.NODE_ENV).trim() !== 'development'
+  String(process.env.NODE_ENV).trim() !== "development"
 ) {
   const startServiceWorkerPromise = async (): Promise<void> => {
-    const { startServiceWorker } = await import('./serviceWorker')
-    startServiceWorker()
-  }
+    const { startServiceWorker } = await import("./serviceWorker");
+    startServiceWorker();
+  };
 
   startServiceWorkerPromise()
     .then(() => {})
-    .catch((er) => console.log(er))
+    .catch((er) => console.log(er));
 }
 
 const indexJSX = (
@@ -69,22 +69,22 @@ const indexJSX = (
     <Provider store={store}>
       <HelmetProvider>
         <BrowserRouter>
-          <App />
+          <Root />
         </BrowserRouter>
       </HelmetProvider>
     </Provider>
   </StrictMode>
-)
+);
 
-const container = document.getElementById('root')
-if (container == null) throw new Error('Failed to find the root element')
+const container = document.getElementById("root");
+if (container == null) throw new Error("Failed to find the root element");
 
 if (NO_SSR) {
-  createRoot(container).render(indexJSX)
+  createRoot(container).render(indexJSX);
 } else {
   loadableReady(() => {
-    hydrateRoot(container, indexJSX)
+    hydrateRoot(container, indexJSX);
   })
     .then(() => {})
-    .catch((er) => console.log(er))
+    .catch((er) => console.log(er));
 }
