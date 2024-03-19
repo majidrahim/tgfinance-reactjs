@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { loadableReady } from "@loadable/component";
 
-import { Root } from "components/Root/Root";
+import { Root } from "pages/Root/Root";
 
 import { initStore } from "store/store";
 import { Provider } from "react-redux";
@@ -13,7 +13,7 @@ import {
   localStorageAppKey,
 } from "constants/commonConstants";
 
-import { isServer } from "utils";
+import { isServer } from "src/@core/utils";
 
 import "style/main.scss";
 

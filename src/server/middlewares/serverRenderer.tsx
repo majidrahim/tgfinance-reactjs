@@ -8,7 +8,7 @@ import { getDataFromTree } from "@apollo/react-ssr";
 import { initStore, RootState } from "store/store";
 import { Provider } from "react-redux";
 
-import { App } from "src/components/App/App";
+import { App } from "src/pages/App/App";
 import { ROUTE_CONSTANTS } from "constants/routeConstants";
 import { apiRequest, setTranslations } from "server/middlewares";
 import { getHtmlTemplate } from "server/template";

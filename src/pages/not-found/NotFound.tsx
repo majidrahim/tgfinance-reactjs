@@ -1,17 +1,17 @@
-import { FC, ReactElement } from 'react'
+import { FC, ReactElement } from "react";
 
-import { PageMeta } from 'components'
-import useTranslations from 'i18n/useTranslations'
+import { PageMeta } from "src/@core/components";
+import useTranslations from "i18n/useTranslations";
 
 const NotFound: FC = (): ReactElement => {
-  const { t } = useTranslations()
+  const { t } = useTranslations();
 
   return (
-    <div className='main not-found'>
+    <div className="main not-found">
       <PageMeta title={t.pageNames.pageNotFound} />
       <h1>{t.notFoundText}</h1>
     </div>
-  )
-}
+  );
+};
 
-export { NotFound }
+export { NotFound };

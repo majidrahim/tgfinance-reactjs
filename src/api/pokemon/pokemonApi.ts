@@ -3,17 +3,17 @@ import {
   coreModule,
   reactHooksModule,
   createApi,
-  fetchBaseQuery
-} from '@reduxjs/toolkit/query/react'
+  fetchBaseQuery,
+} from "@reduxjs/toolkit/query/react";
 
-import { isServer } from 'utils'
+import { isServer } from "src/@core/utils";
 
 interface TPokemonData {
-  name: string
-  sprite: string
+  name: string;
+  sprite: string;
 }
 
-let createApiFunction = createApi
+let createApiFunction = createApi;
 
 /*
 For data prefetching during SSR we need to use a modified createApi function.
@@ -23,20 +23,20 @@ if (isServer) {
   createApiFunction = buildCreateApi(
     coreModule(),
     // eslint-disable-next-line camelcase
-    reactHooksModule({ unstable__sideEffectsInRender: true })
-  )
+    reactHooksModule({ unstable__sideEffectsInRender: true }),
+  );
 }
 
 export const pokemonApi = createApiFunction({
-  reducerPath: 'pokemonApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://pokeapi.co/api/v2/' }),
+  reducerPath: "pokemonApi",
+  baseQuery: fetchBaseQuery({ baseUrl: "https://pokeapi.co/api/v2/" }),
   endpoints: (builder) => ({
     getPokemonSpriteById: builder.query<TPokemonData, number>({
       query: (id) => `pokemon/${id}`,
       transformResponse: (response: any) => ({
         name: response.species.name,
-        sprite: response.sprites.other.dream_world.front_default
-      })
-    })
-  })
-})
+        sprite: response.sprites.other.dream_world.front_default,
+      }),
+    }),
+  }),
+});

@@ -5,22 +5,22 @@ import {
   Dispatch,
   UnknownAction,
   EnhancedStore,
-  ThunkDispatch
-} from '@reduxjs/toolkit'
+  ThunkDispatch,
+} from "@reduxjs/toolkit";
 
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
-import { ThunkAction } from 'redux-thunk'
+import { ThunkAction } from "redux-thunk";
 
-import { rootReducer, mainReducer } from './rootReducer'
-import { pokemonApi } from 'api'
-import { persistStateToLocalStorage } from './middlewares'
-import { isServer } from 'utils'
+import { rootReducer, mainReducer } from "./rootReducer";
+import { pokemonApi } from "api";
+import { persistStateToLocalStorage } from "./middlewares";
+import { isServer } from "src/@core/utils";
 
 const middlewares = [
-  ...(!isServer ? [persistStateToLocalStorage(['counter', 'pokemonApi'])] : []),
-  pokemonApi.middleware
-]
+  ...(!isServer ? [persistStateToLocalStorage(["counter", "pokemonApi"])] : []),
+  pokemonApi.middleware,
+];
 
 const initStore = (preloadedState?: Partial<RootState>): EnhancedStore =>
   configureStore({
@@ -28,17 +28,17 @@ const initStore = (preloadedState?: Partial<RootState>): EnhancedStore =>
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(middlewares),
     preloadedState,
-    devTools: String(process.env.NODE_ENV).trim() !== 'production'
-  })
+    devTools: String(process.env.NODE_ENV).trim() !== "production",
+  });
 
-export type Store = ReturnType<typeof initStore>
-export type RootState = StateFromReducersMapObject<typeof rootReducer>
-export type AppDispatch = Store['dispatch']
-export type AppThunk = ThunkAction<void, RootState, unknown, Action>
+export type Store = ReturnType<typeof initStore>;
+export type RootState = StateFromReducersMapObject<typeof rootReducer>;
+export type AppDispatch = Store["dispatch"];
+export type AppThunk = ThunkAction<void, RootState, unknown, Action>;
 
 export const useAppDispatch = (): Dispatch<UnknownAction> &
-ThunkDispatch<RootState, undefined, UnknownAction> =>
-  useDispatch<AppDispatch>()
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
+  ThunkDispatch<RootState, undefined, UnknownAction> =>
+  useDispatch<AppDispatch>();
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
-export { initStore }
+export { initStore };
